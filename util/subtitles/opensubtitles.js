@@ -11,6 +11,8 @@ const get = async (options) => {
         }
     }).then(r=>r.json());
 
+    console.log(url)
+
     return json.map((sub) => {
         return {
             name: sub.LanguageName,

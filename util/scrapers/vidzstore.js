@@ -1,11 +1,13 @@
+import { JSDOM } from "jsdom";
+
 const search = async (query) => {
-    const parser = new DOMParser();
+    
 
     return;
 };
 
 const scrape = async (slug) => {
-    const parser = new DOMParser();
+    
 
     return;
 };
