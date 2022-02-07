@@ -1,27 +1,40 @@
-# Movolo
-Movolo is a Movie & TV search engine, powered by TMDB & Svelte.
+# create-svelte
 
-# Running a development environnment locally
-1. `git clone https://github.com/lem6ns/movolo`
-2. `npm i`
-3. `npm run dev`
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-# Building
-1. `git clone https://github.com/lem6ns/movolo`
-2. `npm i`
-3. `npm run build`
+## Creating a project
 
-# Running locally for windows users
-1. Install [Web Server for Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb)
-2. Grab the latest release from https://github.com/lem6ns/movolo/releases/latest
-3. Extract the latest release
-4. Change the folder to the Release folder
-6. Use Movolo!
+If you're seeing this, you've probably already done this step. Congrats!
 
+```bash
+# create a new project in the current directory
+npm init svelte@next
 
-# Running locally for linux users
-1. Grab the latest release from https://github.com/lem6ns/movolo/releases/latest
-2. Extract the latest release
-3. cd into the release folder
-4. `python -m http.server`
-5. Movolo can be accessed from http://localhost:8000
+# create a new project in my-app
+npm init svelte@next my-app
+```
+
+> Note: the `@next` is temporary
+
+## Developing
+
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+
+```bash
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
+
+## Building
+
+To create a production version of your app:
+
+```bash
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment.
