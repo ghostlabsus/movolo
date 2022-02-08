@@ -1,5 +1,6 @@
 {
 	"compilerOptions": {
+		"baseUrl": ".",
 		"moduleResolution": "node",
 		"module": "es2020",
 		"lib": ["es2020", "DOM"],
@@ -19,12 +20,13 @@
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
-		"baseUrl": ".",
 		"allowJs": true,
 		"checkJs": true,
 		"paths": {
 			"$lib": ["src/lib"],
-			"$lib/*": ["src/lib/*"]
+			"$lib/*": ["src/lib/*"],
+			"@scrapers/*": ["src/util/scrapers/*"],
+			"@subtitles/*": ["src/util/subtitles/*"],
 		}
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]

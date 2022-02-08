@@ -1,0 +1,47 @@
+{
+    "scrapers": [
+        {
+            "name": "TheFlix",
+            "id": "tf",
+            "url": "https://theflix.to",
+            "types": [
+                "movies",
+                "series"
+            ]
+        }, {
+            "name": "VidzStore",
+            "id": "vidz",
+            "url": "https://stream.vidzstore.co",
+            "types": [
+                "movies"
+            ]
+        }, {
+            "name": "xemovie",
+            "id": "xem",
+            "url": "https://xemovie.co",
+            "types": [
+                "movies",
+                "series"
+            ]
+        }
+    ],
+    "subtitles": [
+        {
+            "name": "GDrivePlayer",
+            "id": "gdp",
+            "url": "https://databasegdriveplayer.co"
+        }, {
+            "name": "www.OpenSubtitles.org",
+            "id": "os",
+            "url": "https://opensubtitles.org"
+        }, {
+            "name": "Trailers",
+            "id": "trailers",
+            "url": "https://trailers.to"
+        }, {
+            "name": "xemovie",
+            "id": "xem",
+            "url": "https://xemovie.co"
+        }
+    ]
+}
