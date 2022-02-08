@@ -1,4 +1,4 @@
-import Info from "info.json";
+import Info from "@src/info.json";
 import fetch from "node-fetch";
 
 const BASE_URL = Info.subtitles.find(s => s.id === "os").url;

@@ -1,4 +1,4 @@
-import Info from "info.json";
+import Info from "@src/info.json";
 import fetch from "node-fetch";
 import { JSDOM } from "jsdom";
 

@@ -27,6 +27,7 @@
 			"$lib/*": ["src/lib/*"],
 			"@scrapers/*": ["src/util/scrapers/*"],
 			"@subtitles/*": ["src/util/subtitles/*"],
+			"@src/*": ["src/*"]
 		}
 	},
 	"include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]
