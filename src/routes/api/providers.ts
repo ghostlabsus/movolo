@@ -1,9 +1,12 @@
-import Info from "@src/info.json";
+import Config from "@src/config.json";
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 const get = () => {
     return {
-        body: Info
+        body: {
+            scrapers: Config.scrapers,
+            subtitles: Config.subtitles
+        }
     }
 }
 

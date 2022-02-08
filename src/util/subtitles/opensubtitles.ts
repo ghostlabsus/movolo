@@ -1,7 +1,6 @@
-import Info from "@src/info.json";
-import fetch from "node-fetch";
+import Config from "@src/config.json";
 
-const BASE_URL = Info.subtitles.find(s => s.id === "os").url;
+const BASE_URL = Config.subtitles.find(s => s.id === "os").url;
 
 const getSubtitles = (tmdbId: string, language: string, season?: string, episode?: string) => {
     

@@ -1,8 +1,7 @@
-import Info from "@src/info.json";
-import fetch from "node-fetch";
-import { JSDOM } from "jsdom";
+import Config from "@src/config.json";
+const HTMLParser = require("node-html-parser");
 
-const BASE_URL = Info.subtitles.find(s => s.id === "gdp").url;
+const BASE_URL = Config.subtitles.find(s => s.id === "gdp").url;
 
 const getSubtitles = (tmdbId: string, language: string, season?: string, episode?: string) => {
     

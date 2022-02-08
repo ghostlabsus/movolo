@@ -1,11 +1,10 @@
-import Info from "@src/info.json";
-import fetch from "node-fetch";
-import { JSDOM } from "jsdom";
+import Config from "@src/config.json";
+const HTMLParser = require("node-html-parser");
 
-const BASE_URL = Info.scrapers.find(s => s.id === "vidz").url;
+const BASE_URL = Config.scrapers.find(s => s.id === "vidz").url;
 
-const search = async (query: string) => {
-
+const search = async (query: string, type: "movie" | "series") => {
+    
 };
 
 const scrape = async (slug: string) => {
