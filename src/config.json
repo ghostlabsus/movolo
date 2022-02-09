@@ -12,7 +12,7 @@
         }, {
             "name": "VidzStore",
             "id": "vidz",
-            "url": "https://stream.vidzstore.co",
+            "url": "https://stream.vidzstore.com",
             "types": [
                 "movies"
             ]
@@ -20,6 +20,14 @@
             "name": "xemovie",
             "id": "xem",
             "url": "https://xemovie.co",
+            "types": [
+                "movies",
+                "series"
+            ]
+        }, {
+            "name": "Gogo-play",
+            "id": "gogo",
+            "url": "https://gogoplay1.com",
             "types": [
                 "movies",
                 "series"

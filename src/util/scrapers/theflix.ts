@@ -1,12 +1,14 @@
 import Config from "@src/config.json";
-const HTMLParser = require("node-html-parser");
 import type { ScraperResult, SearchResult } from "@src/Types";
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const HTMLParser = require("node-html-parser");
 
 const BASE_URL = Config.scrapers.find(s => s.id === "tf").url;
 
 const search = async (query: string, type: "movie" | "series"): Promise<SearchResult[]> => {
     const searchType = (type === "movie") ? "movies" : "tv-shows";
-    const url = `${BASE_URL}/${searchType}/trending?search=${encodeURIComponent(query)}`
+    const url = `${BASE_URL}/${searchType}/trending?search=${encodeURIComponent(query).replace(/%20/g, "+")}`;
     const unparsedHtml = await fetch(url).then(res => res.text());
     const DOM = HTMLParser.parse(unparsedHtml);
 
@@ -25,7 +27,7 @@ const search = async (query: string, type: "movie" | "series"): Promise<SearchRe
     return results;
 };
 
-const scrape = async (slug: string): Promise<ScraperResult> => {
+const scrape = async (slug: string, type: "movie" | "series"): Promise<ScraperResult> => {
 
     return;
 };
