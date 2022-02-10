@@ -15,8 +15,8 @@ const search = async (query: string, type: "movie" | "tv"): Promise<SearchResult
         return {
             title: result.querySelector(".name").text.split("HD-")[0].trim(),
             year: new Date(result.querySelector(".date").text).getFullYear() || new Date().getFullYear(),
-            slug: encodeURIComponent(result.querySelector("a")["_attrs"].href.slice(1)),
-            poster: result.querySelector("img")["_attrs"].src,
+            slug: encodeURIComponent(result.querySelector("a").attrs.href.slice(1)),
+            poster: result.querySelector("img").attrs.src,
             provider: "vembed",
             type
         }
@@ -27,8 +27,8 @@ const search = async (query: string, type: "movie" | "tv"): Promise<SearchResult
         return {
             title: result.querySelector(".name").text.split(" Episode")[0].trim(),
             year: new Date(result.querySelector(".date").text).getFullYear() || new Date().getFullYear(),
-            slug: encodeURIComponent(result.querySelector("a")["_attrs"].href.slice(1)),
-            poster: result.querySelector("img")["_attrs"].src,
+            slug: encodeURIComponent(result.querySelector("a").attrs.href.slice(1)),
+            poster: result.querySelector("img").attrs.src,
             provider: "vembed",
             type
         }
@@ -46,34 +46,29 @@ const scrape = async (slug: string, type: "movie" | "tv"): Promise<ScraperResult
     const unparsedHtml = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0" }}).then(res => res.text());
     const DOM = parse(unparsedHtml);
 
-    const unparsedHtmlIframe = await fetch(`https:${DOM.querySelector("iframe").rawAttrs.split('src="')[1].split('"')[0]}`).then(res => res.text());
+    const unparsedHtmlIframe = await fetch(`https:${DOM.querySelector("iframe").attrs.src}`).then(res => res.text());
     const DOMIframe = parse(unparsedHtmlIframe);
 
-    const encryptedContent = DOMIframe.querySelector("[name=crypto]")["_attrs"].content;
-    const encryptedValue = DOMIframe.querySelector("[data-name=crypto]")["_attrs"]["data-value"];
-    const time = DOMIframe.querySelector("[data-name=ts]")["_attrs"]["data-value"];
+    const encryptedValue = DOMIframe.querySelector("[data-name=crypto]").attrs["data-value"];
+    const time = DOMIframe.querySelector("[data-name=ts]").attrs["data-value"];
 
     const decryptedValue = CryptoJS.enc.Utf8.stringify(CryptoJS.AES.decrypt(encryptedValue, CryptoJS.enc.Utf8.parse(`${time}${time}`), {
         'iv': CryptoJS.enc.Utf8.parse(time)
     }));
 
-    const decryptedContent = CryptoJS.enc.Utf8.stringify(CryptoJS.AES.decrypt(encryptedContent, CryptoJS.enc.Utf8.parse(`${decryptedValue}`), {
-        'iv': CryptoJS.enc.Utf8.parse(time)
-    }));
-
-    const pathname = decryptedContent.substr(0, decryptedContent.indexOf('&'));
+    const pathname = new URL(`https:${DOM.querySelector("iframe").attrs.src}`).searchParams.get("id");
     const id = CryptoJS.AES.encrypt(pathname, CryptoJS.enc.Utf8.parse(decryptedValue), { iv: CryptoJS.enc.Utf8.parse("0000000000000000") }).toString();
-    let json: VidEmbedResult = await fetch(`https://vidembed.io/encrypt-ajax.php?id=${id}&time=00000000000000000000`, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0", "X-Requested-With": "XMLHttpRequest" } }).then(r => r.json());
+    let json: VidEmbedResult = await fetch(`${BASE_URL}/encrypt-ajax.php?id=${id}&time=00000000000000000000`, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0", "X-Requested-With": "XMLHttpRequest" } }).then(r => r.json());
     let episodes = null;
-
+    
     if (type == "tv") {
         episodes = [...DOM.querySelector(".listing").querySelectorAll(".video-block")].map(e => {
             return {
                 title: e.querySelector(".name").text.split(" Episode")[0].trim(),
                 season: NaN,
                 episode: parseInt(e.querySelector(".name").text.match(/Episode [0-9]{1,}/)[0].substr(8)),
-                slug: encodeURIComponent(e.querySelector("a")["_attrs"].href.slice(1)),
-                provider: "gogo"
+                slug: encodeURIComponent(e.querySelector("a").attrs.href.slice(1)),
+                provider: "vembed"
             }
         }).reverse();
     } else {
