@@ -1,7 +1,7 @@
 import Config from "@src/config.json";
 import type { ScraperResult, SearchResult } from "@src/Types";
 import Fuse from "fuse.js";
-const HTMLParser = require("node-html-parser");
+import parse from "node-html-parser";
 
 const BASE_URL = Config.scrapers.find(s => s.id === "vidz").url;
 
@@ -10,7 +10,7 @@ const search = async (query: string, type: "movie" | "series"): Promise<SearchRe
 
     const url = `${BASE_URL}/search.php?sd=${query.replace(/ /g, "_")}`;
     const unparsedHtml = await fetch(url).then(res => res.text());
-    const DOM = HTMLParser.parse(unparsedHtml);
+    const DOM = parse(unparsedHtml);
 
     const unmappedResults = [...DOM.querySelectorAll(".post")];
     const results = new Fuse(unmappedResults.map(result => {

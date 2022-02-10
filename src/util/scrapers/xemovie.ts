@@ -1,14 +1,14 @@
 import Config from "@src/config.json";
 import type { ScraperResult, SearchResult } from "@src/Types";
-const HTMLParser = require("node-html-parser");
-const Fuse = require("fuse.js");
+import parse from "node-html-parser";
+import Fuse from "fuse.js";
 
 const BASE_URL = Config.scrapers.find(s => s.id === "xem").url;
 
 const search = async (query: string, type: "movie" | "series"): Promise<SearchResult[]> => {
     const url = `${BASE_URL}/search?q=${encodeURIComponent(query).replace(/%20/g, "+")}`;
     const unparsedHtml = await fetch(url).then(res => res.text());
-    const DOM: any = HTMLParser.parse(unparsedHtml);
+    const DOM: any = parse(unparsedHtml);
 
     const unmappedMovieResults = [...DOM.querySelector('.py-10').querySelector(".grid").querySelectorAll("div")].filter(el => el.childNodes.length == 9);
     let movieResults = new Fuse(unmappedMovieResults.map(result => {

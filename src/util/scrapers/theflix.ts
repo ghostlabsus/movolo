@@ -1,6 +1,6 @@
 import Config from "@src/config.json";
 import type { ScraperResult, SearchResult } from "@src/Types";
-const HTMLParser = require("node-html-parser");
+import parse from "node-html-parser";
 
 const BASE_URL = Config.scrapers.find(s => s.id === "tf").url;
 
@@ -8,7 +8,7 @@ const search = async (query: string, type: "movie" | "series"): Promise<SearchRe
     const searchType = (type === "movie") ? "movies" : "tv-shows";
     const url = `${BASE_URL}/${searchType}/trending?search=${encodeURIComponent(query).replace(/%20/g, "+")}`;
     const unparsedHtml = await fetch(url).then(res => res.text());
-    const DOM = HTMLParser.parse(unparsedHtml);
+    const DOM = parse(unparsedHtml);
 
     const unmappedResults = JSON.parse(DOM.querySelector("#__NEXT_DATA__").innerHTML).props.pageProps.mainList.docs.filter(result => result.available);
     const results = unmappedResults.map(result => {

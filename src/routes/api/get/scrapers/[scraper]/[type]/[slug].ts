@@ -6,11 +6,11 @@ const get = async ({ params }) => {
     const slug = params.slug;
 
     const scrapers = {
-        "xem": await import(`@scrapers/xemovie`),
-        "vidz": await import(`@scrapers/vidzstore`),
-        "vembed": await import(`@scrapers/vidembed`),
-        "gogo": await import(`@scrapers/gogoplay`),
-        "tf": await import(`@scrapers/theflix`)
+        "xem": (await import(`@scrapers/xemovie`)).default,
+        "vidz": (await import(`@scrapers/vidzstore`)).default,
+        "vembed": (await import(`@scrapers/vidembed`)).default,
+        "gogo": (await import(`@scrapers/gogoplay`)).default,
+        "tf": (await import(`@scrapers/theflix`)).default,
     };
     
     const scraper = scrapers[params.scraper];
