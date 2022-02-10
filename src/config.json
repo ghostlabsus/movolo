@@ -7,7 +7,7 @@
             "url": "https://theflix.to",
             "types": [
                 "movies",
-                "series"
+                "tv"
             ]
         }, {
             "name": "VidzStore",
@@ -22,7 +22,7 @@
             "url": "https://xemovie.co",
             "types": [
                 "movies",
-                "series"
+                "tv"
             ]
         }, {
             "name": "Gogo-play",
@@ -30,7 +30,7 @@
             "url": "https://gogoplay.io",
             "types": [
                 "movies",
-                "series"
+                "tv"
             ]
         }, {
             "name": "VidEmbed",
@@ -38,7 +38,7 @@
             "url": "https://vidembed.io",
             "types": [
                 "movies",
-                "series"
+                "tv"
             ]
         }
     ],

@@ -5,7 +5,7 @@ import Fuse from "fuse.js";
 
 const BASE_URL = Config.scrapers.find(s => s.id === "xem").url;
 
-const search = async (query: string, type: "movie" | "series"): Promise<SearchResult[]> => {
+const search = async (query: string, type: "movie" | "tv"): Promise<SearchResult[]> => {
     const url = `${BASE_URL}/search?q=${encodeURIComponent(query).replace(/%20/g, "+")}`;
     const unparsedHtml = await fetch(url).then(res => res.text());
     const DOM: any = parse(unparsedHtml);
@@ -41,7 +41,7 @@ const search = async (query: string, type: "movie" | "series"): Promise<SearchRe
     }
 };
 
-const scrape = async (slug: string, type: "movie" | "series"): Promise<ScraperResult> => {
+const scrape = async (slug: string, type: "movie" | "tv"): Promise<ScraperResult> => {
 
     return;
 };

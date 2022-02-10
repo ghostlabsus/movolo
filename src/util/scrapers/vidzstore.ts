@@ -5,8 +5,8 @@ import parse from "node-html-parser";
 
 const BASE_URL = Config.scrapers.find(s => s.id === "vidz").url;
 
-const search = async (query: string, type: "movie" | "series"): Promise<SearchResult[]> => {
-    if (type === "series") return [];
+const search = async (query: string, type: "movie" | "tv"): Promise<SearchResult[]> => {
+    if (type === "tv") return [];
 
     const url = `${BASE_URL}/search.php?sd=${query.replace(/ /g, "_")}`;
     const unparsedHtml = await fetch(url).then(res => res.text());

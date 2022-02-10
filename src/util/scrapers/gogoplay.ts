@@ -5,7 +5,7 @@ import CryptoJS from "crypto-js";
 
 const BASE_URL = Config.scrapers.find(s => s.id === "gogo").url;
 
-const search = async (query: string, type: "movie" | "series"): Promise<SearchResult[]> => {
+const search = async (query: string, type: "movie" | "tv"): Promise<SearchResult[]> => {
     const url = `${BASE_URL}/search.html?keyword=${query}`;
     const unparsedHtml = await fetch(url).then(res => res.text());
     const DOM = parse(unparsedHtml);
@@ -25,7 +25,7 @@ const search = async (query: string, type: "movie" | "series"): Promise<SearchRe
     return results;
 };
 
-const scrape = async (slug: string, type: "movie" | "series"): Promise<ScraperResult> => {
+const scrape = async (slug: string, type: "movie" | "tv"): Promise<ScraperResult> => {
     const url = `${BASE_URL}/${slug}`;
     const unparsedHtml = await fetch(url).then(res => res.text());
     const DOM = parse(unparsedHtml);

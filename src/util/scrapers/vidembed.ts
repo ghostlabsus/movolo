@@ -5,7 +5,7 @@ import CryptoJS from "crypto-js";
 
 const BASE_URL = Config.scrapers.find(s => s.id === "vembed").url;
 
-const search = async (query: string, type: "movie" | "series"): Promise<SearchResult[]> => {
+const search = async (query: string, type: "movie" | "tv"): Promise<SearchResult[]> => {
     const url = `${BASE_URL}/search.html?keyword=${query}`;
     const unparsedHtml = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0" }}).then(res => res.text());
     const DOM = parse(unparsedHtml);
@@ -41,7 +41,7 @@ const search = async (query: string, type: "movie" | "series"): Promise<SearchRe
     };
 };
 
-const scrape = async (slug: string, type: "movie" | "series"): Promise<ScraperResult> => {
+const scrape = async (slug: string, type: "movie" | "tv"): Promise<ScraperResult> => {
     const url = `${BASE_URL}/${slug}`;
     const unparsedHtml = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0" }}).then(res => res.text());
     const DOM = parse(unparsedHtml);
@@ -66,10 +66,10 @@ const scrape = async (slug: string, type: "movie" | "series"): Promise<ScraperRe
     let json: VidEmbedResult = await fetch(`https://vidembed.io/encrypt-ajax.php?id=${id}&time=00000000000000000000`, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0", "X-Requested-With": "XMLHttpRequest" } }).then(r => r.json());
     let episodes = null;
 
-    if (type == "series") {
+    if (type == "tv") {
         episodes = [...DOM.querySelector(".listing").querySelectorAll(".video-block")].map(e => {
             return {
-                title: e.querySelector(".name").text.replace(/Episode [0-9]{1,}/, "").trim(),
+                title: e.querySelector(".name").text.split(" Episode")[0].trim(),
                 season: NaN,
                 episode: parseInt(e.querySelector(".name").text.match(/Episode [0-9]{1,}/)[0].substr(8)),
                 slug: encodeURIComponent(e.querySelector("a")["_attrs"].href.slice(1)),

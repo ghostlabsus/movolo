@@ -4,7 +4,7 @@ export interface SearchResult {
     slug: string;
     poster?: string;
     provider: string;
-    type: "movie" | "series";
+    type: "movie" | "tv";
 };
 
 export interface Subtitle {
