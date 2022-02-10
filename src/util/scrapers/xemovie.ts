@@ -1,7 +1,5 @@
 import Config from "@src/config.json";
 import type { ScraperResult, SearchResult } from "@src/Types";
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
 const HTMLParser = require("node-html-parser");
 const Fuse = require("fuse.js");
 
@@ -17,24 +15,24 @@ const search = async (query: string, type: "movie" | "series"): Promise<SearchRe
         return {
             title: result.querySelector(".block").text.replace(/ \([0-9]{4}\)/g, "").trim(),
             year: parseInt(result.querySelector(".float-right").text),
-            slug: new URL(result.querySelector("a").rawAttrs.replace('href="', "").replace('"', "")).pathname.slice(1),
-            poster: result.querySelector("img").src,
+            slug: encodeURIComponent(new URL(result.querySelector("a").rawAttrs.replace('href="', "").replace('"', "")).pathname.slice(1)),
+            poster: result.querySelector("img")._attrs["data-src"],
             provider: "xem",
             type
         }
-    }), { keys: ["title"] }).search(query).map(r => r.item);
+    }), { keys: ["title"], threshold: 0.3 }).search(query).map(r => r.item);
 
     const unmappedTvResults = [...DOM.querySelectorAll('.py-10')[1].querySelector(".grid").querySelectorAll("div")].filter(el => el.childNodes.length == 9);
     const tvResults = new Fuse(unmappedTvResults.map(result => {
         return {
-            title: result.querySelector(".block").text.replace(/ \([0-9]{4}\)/g, "").trim(),
+            title: result.querySelector(".block").text.replace(/ \([0-9]{4}\)/g, "").split(" Season")[0].trim(),
             year: parseInt(result.querySelector(".float-right").text),
-            slug: new URL(result.querySelector("a").rawAttrs.replace('href="', "").replace('"', "")).pathname.slice(1),
-            poster: result.querySelector("img").src,
+            slug: encodeURIComponent(new URL(result.querySelector("a").rawAttrs.replace('href="', "").replace('"', "")).pathname.slice(1)),
+            poster: result.querySelector("img")._attrs["data-src"],
             provider: "xem",
             type
         }
-    }), { keys: ["title"] }).search(query).map(r => r.item);
+    }), { keys: ["title"], threshold: 0.3 }).search(query).map(r => r.item);
 
     if (type === "movie") {
         return movieResults
@@ -43,7 +41,7 @@ const search = async (query: string, type: "movie" | "series"): Promise<SearchRe
     }
 };
 
-const scrape = async (slug: string, type: "movie" | "series"): Promise<ScraperResult>  => {
+const scrape = async (slug: string, type: "movie" | "series"): Promise<ScraperResult> => {
 
     return;
 };

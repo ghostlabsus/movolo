@@ -4,8 +4,21 @@ import Config from "@src/config.json";
 const get = () => {
     return {
         body: {
-            scrapers: Config.scrapers,
-            subtitles: Config.subtitles
+            scrapers: Config.scrapers.map(scraper => {
+                return {
+                    name: scraper.name,
+                    id: scraper.id,
+                    url: scraper.url,
+                    types: scraper.types
+                }
+            }),
+            subtitles: Config.subtitles.map(scraper => {
+                return {
+                    name: scraper.name,
+                    id: scraper.id,
+                    url: scraper.url,
+                }
+            })
         }
     }
 }

@@ -27,7 +27,15 @@
         }, {
             "name": "Gogo-play",
             "id": "gogo",
-            "url": "https://gogoplay1.com",
+            "url": "https://gogoplay.io",
+            "types": [
+                "movies",
+                "series"
+            ]
+        }, {
+            "name": "VidEmbed",
+            "id": "vembed",
+            "url": "https://vidembed.io",
             "types": [
                 "movies",
                 "series"

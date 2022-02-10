@@ -1,7 +1,5 @@
 import Config from "@src/config.json";
 import type { ScraperResult, SearchResult } from "@src/Types";
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
 const HTMLParser = require("node-html-parser");
 
 const BASE_URL = Config.scrapers.find(s => s.id === "tf").url;
@@ -17,7 +15,7 @@ const search = async (query: string, type: "movie" | "series"): Promise<SearchRe
         return {
             title: result.name,
             year: new Date(result.releaseDate).getFullYear(),
-            slug: `${type == "movie" ? type : "tv-show"}/${result.id}-${result.name.toLowerCase().replace(/ /g, "-").replace(/[^A-Za-z0-9-]/g, "")}`,
+            slug: encodeURIComponent(`${type == "movie" ? type : "tv-show"}/${result.id}-${result.name.toLowerCase().replace(/ /g, "-").replace(/[^A-Za-z0-9-]/g, "")}`),
             poster: result.posterUrl,
             provider: "tf",
             type

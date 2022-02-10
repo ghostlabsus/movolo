@@ -15,7 +15,16 @@ export interface Subtitle {
     hearingImpaired?: boolean;
 };
 
+export interface Episode {
+    title: string;
+    season: number;
+    episode: number;
+    slug: string;
+    provider: string;
+}
+
 export interface ScraperResult {
     url: string;
-    subtitles: Subtitle[];
+    subtitles?: Subtitle[];
+    episodes?: Episode[];
 };

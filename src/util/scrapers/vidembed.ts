@@ -3,26 +3,42 @@ import type { ScraperResult, SearchResult } from "@src/Types";
 const HTMLParser = require("node-html-parser");
 const CryptoJS = require("crypto-js");
 
-const BASE_URL = Config.scrapers.find(s => s.id === "gogo").url;
+const BASE_URL = Config.scrapers.find(s => s.id === "vembed").url;
 
 const search = async (query: string, type: "movie" | "series"): Promise<SearchResult[]> => {
     const url = `${BASE_URL}/search.html?keyword=${query}`;
-    const unparsedHtml = await fetch(url).then(res => res.text());
+    const unparsedHtml = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0" }}).then(res => res.text());
     const DOM = HTMLParser.parse(unparsedHtml);
 
-    const unmappedResults = [...DOM.querySelectorAll(".video-block")];
-    const results = unmappedResults.map(result => {
+    const unmappedMovieResults = [...DOM.querySelectorAll(".video-block")].filter(result => !result.querySelector(".name").text.includes("Episode"));
+    const movieResults = unmappedMovieResults.map(result => {
         return {
-            title: result.querySelector(".name").text.replace(/Episode [0-9]{1,}/, "").trim(),
+            title: result.querySelector(".name").text.split("HD-")[0].trim(),
             year: new Date(result.querySelector(".date").text).getFullYear() || new Date().getFullYear(),
             slug: encodeURIComponent(result.querySelector("a")._attrs.href.slice(1)),
             poster: result.querySelector("img")._attrs.src,
-            provider: "gogo",
+            provider: "vembed",
             type
         }
-    })
+    });
 
-    return results;
+    const unmappedTVResults = [...DOM.querySelectorAll(".video-block")].filter(result => result.querySelector(".name").text.includes("Episode"));
+    const tvResults = unmappedTVResults.map(result => {
+        return {
+            title: result.querySelector(".name").text.split(" - Season")[0].trim(),
+            year: new Date(result.querySelector(".date").text).getFullYear() || new Date().getFullYear(),
+            slug: encodeURIComponent(result.querySelector("a")._attrs.href.slice(1)),
+            poster: result.querySelector("img")._attrs.src,
+            provider: "vembed",
+            type
+        }
+    });
+
+    if (type == "movie") {
+        return movieResults;
+    } else {
+        return tvResults;
+    };
 };
 
 const scrape = async (slug: string, type: "movie" | "series"): Promise<ScraperResult> => {
