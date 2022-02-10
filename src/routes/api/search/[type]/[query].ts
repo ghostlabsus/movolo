@@ -10,7 +10,7 @@ const get = async ({ params }) => {
     const query = params.query;
 
     const results = await Promise.all([
-        await theflix.search(query, type),
+        // await theflix.search(query, type), // their account for cdn got suspended
         await vidzstore.search(query, type),
         await xemovie.search(query, type),
         await gogoplay.search(query, type),

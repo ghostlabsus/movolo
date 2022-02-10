@@ -73,7 +73,7 @@ const scrape = async (slug: string, type: "movie" | "tv"): Promise<ScraperResult
                 season: NaN,
                 episode: parseInt(e.querySelector(".name").text.match(/Episode [0-9]{1,}/)[0].substr(8)),
                 slug: encodeURIComponent(e.querySelector("a")["_attrs"].href.slice(1)),
-                provider: "gogo"
+                provider: "vembed"
             }
         }).reverse();
     } else {

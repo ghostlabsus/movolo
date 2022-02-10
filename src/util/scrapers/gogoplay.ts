@@ -15,7 +15,7 @@ const search = async (query: string, type: "movie" | "tv"): Promise<SearchResult
         return {
             title: result.querySelector(".name").text.replace(/Episode [0-9]{1,}/, "").trim(),
             year: new Date(result.querySelector(".date").text).getFullYear() || new Date().getFullYear(),
-            slug: encodeURIComponent(result.querySelector("a")["_attrs"].href.slice(1)),
+            slug: encodeURIComponent(`${result.querySelector("a")["_attrs"].href.slice(1).split("-episode-")[0]}-episode-1`),
             poster: result.querySelector("img")["_attrs"].src,
             provider: "gogo",
             type
