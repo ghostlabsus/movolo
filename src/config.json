@@ -40,13 +40,30 @@
                 "movies",
                 "tv"
             ]
+        }, {
+            "name": "GDrivePlayer",
+            "id": "gdrive",
+            "url": "https://database.gdriveplayer.us",
+            "api": "https://api.gdriveplayer.us",
+            "types": [
+                "movies",
+                "tv"
+            ]
+        }, {
+            "name": "FzMovies",
+            "id": "fzm",
+            "url": "https://fzmovies.website",
+            "types": [
+                "movies",
+                "tv"
+            ]
         }
     ],
     "subtitles": [
         {
             "name": "GDrivePlayer",
             "id": "gdp",
-            "url": "https://databasegdriveplayer.co"
+            "url": "https://databasegdriveplayer.us"
         }, {
             "name": "www.OpenSubtitles.org",
             "id": "os",

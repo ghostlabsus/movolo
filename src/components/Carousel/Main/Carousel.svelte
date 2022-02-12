@@ -3,15 +3,9 @@
 
     import Slide from "./Slide.svelte";
     import Carousel from "@beyonk/svelte-carousel";
-    const slides = [
-        {
-            id: 1,
-            src: "static/img/some-image.webp",
-        },
-    ];
 </script>
 
-<Carousel perPage={10} dots={false}>
+<Carousel>
     <span class="control" slot="left-control">
         <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -26,8 +26,14 @@ const search = async (query: string, type: "movie" | "tv"): Promise<SearchResult
 };
 
 const scrape = async (slug: string, type: "movie" | "tv"): Promise<ScraperResult> => {
-
-    return;
+    const url = `${BASE_URL}/${slug}`;
+    const unparsedHtml = await fetch(url).then(res => res.text());
+    const DOM = parse(unparsedHtml);
+    const result = JSON.parse(DOM.querySelector("#__NEXT_DATA__").innerHTML).props.pageProps.videoUrl;
+    
+    return {
+        url: result
+    }
 };
 
 export default { search, scrape };

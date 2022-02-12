@@ -58,3 +58,12 @@ export interface TrackElement {
     file: string;
     kind: string;
 }
+
+export interface TmdbApiResult {
+    id: number;
+    title: string;
+    year: number;
+    poster: string;
+    backdrop: string;
+    overview: string;
+}

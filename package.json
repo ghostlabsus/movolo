@@ -10,6 +10,7 @@
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
+    "@beyonk/svelte-carousel": "~2.8.0",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
     "autoprefixer": "^10.4.2",
@@ -23,9 +24,9 @@
   },
   "type": "module",
   "dependencies": {
-    "@glidejs/glide": "^3.5.2",
     "crypto-js": "^4.1.1",
     "fuse.js": "^6.5.3",
-    "node-html-parser": "^5.2.0"
+    "node-html-parser": "^5.2.0",
+    "unpacker": "^1.0.1"
   }
 }
