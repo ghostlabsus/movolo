@@ -10,7 +10,9 @@ const get = async ({ params }) => {
         "vidz": (await import(`@scrapers/vidzstore`)).default,
         "vembed": (await import(`@scrapers/vidembed`)).default,
         "gogo": (await import(`@scrapers/gogoplay`)).default,
-        "tf": (await import(`@scrapers/theflix`)).default
+        "tf": (await import(`@scrapers/theflix`)).default,
+        // "fz": (await import(`@scrapers/fzmovies`)).default,
+        "gdrive": (await import(`@scrapers/gdriveplayer`)).default
     };
     
     const scraper = scrapers[params.scraper];
