@@ -3,7 +3,6 @@ import theflix from "@scrapers/theflix";
 import vidembed from "@scrapers/vidembed";
 import vidzstore from "@scrapers/vidzstore";
 import xemovie from "@scrapers/xemovie";
-import fzmovies from "@scrapers/fzmovies";
 import gdriveplayer from "@scrapers/gdriveplayer";
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
@@ -17,7 +16,6 @@ const get = async ({ params }) => {
         await xemovie.search(query, type),
         await gogoplay.search(query, type),
         await vidembed.search(query, type),
-        await fzmovies.search(query, type),
         await gdriveplayer.search(query, type),
     ]);
 

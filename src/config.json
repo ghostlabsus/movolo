@@ -49,14 +49,6 @@
                 "movies",
                 "tv"
             ]
-        }, {
-            "name": "FzMovies",
-            "id": "fzm",
-            "url": "https://fzmovies.website",
-            "types": [
-                "movies",
-                "tv"
-            ]
         }
     ],
     "subtitles": [

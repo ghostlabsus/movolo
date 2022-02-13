@@ -1,5 +1,3 @@
-import Config from "@src/config.json";
-
 /** @type {import('@sveltejs/kit').RequestHandler} */
 const get = async ({ params }) => {
     const type = params.type;
@@ -11,7 +9,6 @@ const get = async ({ params }) => {
         "vembed": (await import(`@scrapers/vidembed`)).default,
         "gogo": (await import(`@scrapers/gogoplay`)).default,
         "tf": (await import(`@scrapers/theflix`)).default,
-        // "fz": (await import(`@scrapers/fzmovies`)).default,
         "gdrive": (await import(`@scrapers/gdriveplayer`)).default
     };
     
