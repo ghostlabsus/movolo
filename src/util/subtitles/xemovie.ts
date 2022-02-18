@@ -1,5 +1,5 @@
 import Config from "@src/config.json";
-const HTMLParser = require("node-html-parser");
+import parse from "node-html-parser";
 
 const BASE_URL = Config.subtitles.find(s => s.id === "xem").url;
 

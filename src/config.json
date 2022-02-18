@@ -54,7 +54,7 @@
     "subtitles": [
         {
             "name": "GDrivePlayer",
-            "id": "gdp",
+            "id": "gdrive",
             "url": "https://databasegdriveplayer.us"
         }, {
             "name": "www.OpenSubtitles.org",

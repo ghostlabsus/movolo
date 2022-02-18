@@ -2,7 +2,7 @@
     import MainCarousel from "@src/components/Carousel/Main/Carousel.svelte";
     import Carousel from "@src/components/Carousel/Carousel.svelte";
     const fetchData = async (type: "movie" | "tv") => {
-        const data = await fetch(`/api/home/ar/${type}`).then(r => r.json());
+        const data = await fetch(`/api/home/en/${type}`).then(r => r.json());
         return data;
     };
 </script>
