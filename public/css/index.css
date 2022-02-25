@@ -33,7 +33,7 @@ main a {
     text-decoration: none;
 }
 
-iframe {
+video {
     position: fixed;
     top: 0px;
     bottom: 0px;
@@ -47,59 +47,16 @@ iframe {
 }
 
 select {
-    z-index: 999999;
-    position: absolute;
-    right: 0.5%;
-    top: 7%;
-    appearance: none;
-    background: black;
-    color: red;
     text-align: center;
-    font-size: 2.1rem;
+    appearance: none;
     border: 1px solid transparent;
+    color: #BCC4DB;
+    background: #262729;
+    border-radius: 5px;
 }
 
 .color {
     color: white !important;
-}
-
-.hide-warning {
-    display: block;
-    opacity: 0;
-    visibility: hidden;
-    transition: visibility 0.5s, opacity 0.5s;
-    transition-delay: 2s;
-}
-
-.hide {
-    display: block;
-    opacity: 0;
-    transition: opacity 0.5s;
-    transition-delay: 2s;
-}
-
-#warning {
-    position: absolute;
-    z-index: 99999999;
-    text-align: center;
-    left: 25%;
-    top: 45%;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
-}
-
-.warning-container {
-    position: fixed;
-    top: 0px;
-    bottom: 0px;
-    right: 0px;
-    width: 100%;
-    border: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    height: 100%;
-    z-index: 9999999999999999;
 }
 
 #close {
@@ -114,47 +71,27 @@ select {
 }
 
 .episode {
-    background: #3498db !important;
-    background-image: -webkit-linear-gradient(top, #3498db, #2980b9) !important;
-    background-image: -moz-linear-gradient(top, #3498db, #2980b9) !important;
-    background-image: -ms-linear-gradient(top, #3498db, #2980b9) !important;
-    background-image: -o-linear-gradient(top, #3498db, #2980b9) !important;
-    background-image: linear-gradient(to bottom, #3498db, #2980b9) !important;
     -webkit-border-radius: 28 !important;
     -moz-border-radius: 28 !important;
     border-radius: 28px !important;
     font-family: Arial !important;
-    color: #ffffff !important;
+    color: #BCC4DB !important;
     font-size: 20px !important;
-    background: #81ff5e !important;
+    background: #262729 !important;
     padding: 6px 4px 6px 4px !important;
     text-decoration: none !important;
+    white-space: nowrap;
 }
 
 .season {
-    background: #3498db !important;
-    background-image: -webkit-linear-gradient(top, #3498db, #2980b9) !important;
-    background-image: -moz-linear-gradient(top, #3498db, #2980b9) !important;
-    background-image: -ms-linear-gradient(top, #3498db, #2980b9) !important;
-    background-image: -o-linear-gradient(top, #3498db, #2980b9) !important;
-    background-image: linear-gradient(to bottom, #3498db, #2980b9) !important;
     -webkit-border-radius: 28 !important;
     -moz-border-radius: 28 !important;
     border-radius: 28px !important;
     font-family: Arial !important;
-    color: #ffffff !important;
+    color: #BCC4DB !important;
     font-size: 20px !important;
-    background: #81ff5e !important;
+    background: #262729 !important;
     padding: 6px 4px 6px 4px !important;
     text-decoration: none !important;
-}
-
-.left {
-    left: 0% !important;
-    right: auto !important;
-}
-
-.left-server {
-    left: 0.5% !important;
-    right: auto !important;
+    white-space: nowrap;
 }

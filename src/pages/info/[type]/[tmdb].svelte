@@ -1,18 +1,22 @@
 <script>
     import { params } from '@roxi/routify';
+    import { onMount } from 'svelte'
     import Config from "../../../config.json";
+
     let info = {
         "title": "Placeholder",
         "overview": "Placeholder",
         "seasons": []
     };
-    
-    (async function () {
+    let server = "theflix",
+        subtitleServer = "trailers";
+
+    onMount(async () => {
         if ($params.type == "movie") {
             let movie = await fetch(`https://api.themoviedb.org/3/movie/${$params.tmdb}?api_key=${Config.tmdbKey}&language=en-US`);
             let movieData = await movie.json();
             info = movieData;
-        }
+        };
         if ($params.type == "tv") {
             let tv = await fetch(`https://api.themoviedb.org/3/tv/${$params.tmdb}?api_key=${Config.tmdbKey}&language=en-US`);
             let tvData = await tv.json();
@@ -23,15 +27,16 @@
                 let seasonData = await season.json();
                 info.seasons.push(seasonData);
                 info.seasons = info.seasons;
+            };
         };
-    }
-    })();
+    })
 
     const showEpisodes = (season) => {
         [...document.querySelectorAll(".season")].forEach(el => el.style.display = "none");
         [...document.querySelectorAll(".season-container")].forEach(el => el.style.display = "none");
         [...document.querySelectorAll(`div[data-season='${season}']`)].forEach(el => el.style.display = "");
     }
+
     const showSeasons = (season) => {
         [...document.querySelectorAll(".season")].forEach(el => el.style.display = "inline");
         [...document.querySelectorAll(".season-container")].forEach(el => el.style.display = "inline");
@@ -50,8 +55,22 @@
     <p>{info?.overview ? info.overview : "No overview available."}</p>
     <p>{info?.title ? info?.title : info?.name} has a { Math.round((info.vote_average/10).toFixed(2)*100) }% score, rated by users.</p>
     <br>
+    <select bind:value={server}>
+        {#each Config.scrapers[$params.type] as server}
+            <option value="{server.id}">{server.name}</option>
+        {/each}
+    </select>
+    <br>
+    <select bind:value={subtitleServer}>
+        <option value="none">None</option>
+        {#each Config.subtitles as server}
+            <option value="{server.id}">{server.name}</option>
+        {/each}
+    </select>
+    <br>
+    <br>
     {#if info.status != "Planned" && $params.type == "movie"}
-        <a href="/player/{$params.tmdb}">STREAM</a>
+        <a href="/player/{server}/{subtitleServer}/{$params.tmdb}" style="margin:10px">STREAM</a>
     {:else if info.status != "Planned" && $params.type == "tv"}
         {#each info.seasons as season}
             <div class="season-container" style="display: inline;">
@@ -61,16 +80,22 @@
                     <br><br>
                 {/if} 
             </div>
-            <div data-season="{season.season_number}" style="display: none;">
+            <div data-season="{season.season_number}" style="display: none; overflow: scroll; overflow-x: hidden; height: 300px">
                 <!-- svelte-ignore a11y-invalid-attribute -->
-                <a class="episode" style="background: red !important;" href="javascript:void(0);" on:click={showSeasons(season.season_number)}>Back</a>
+                <br>
+                <!-- svelte-ignore a11y-invalid-attribute -->
+                <a class="episode" style="background: #2e2e2e !important;" href="javascript:void(0);" on:click={showSeasons(season.season_number)}>Back</a>
                 <br><br>
-                {#each season.episodes as episode}
-                    <a class="episode" href="/player/{$params.tmdb}/{season.season_number}/{episode.episode_number}">Ep. {episode.episode_number}</a>
-                    {#if !(episode.episode_number % 9)}
-                        <br><br>
-                    {/if}
-                {/each}
+                    {#each season.episodes as episode}
+                        {#if window.localStorage[`${$params.tmdb}tv`] && JSON.parse(window.localStorage[`${$params.tmdb}tv`])?.seasons[season.season_number]?.episodes[episode.episode_number]}
+                            <a class="episode" style="background: rgb(0,120,0) !important" href="/player/{server}/{subtitleServer}/{$params.tmdb}/{season.season_number}/{episode.episode_number}">Ep. {episode.episode_number}</a>
+                        {:else}
+                            <a class="episode" href="/player/{server}/{subtitleServer}/{$params.tmdb}/{season.season_number}/{episode.episode_number}">Ep. {episode.episode_number}</a>
+                        {/if}
+                        {#if !(episode.episode_number % 9)}
+                            <br><br>
+                        {/if}
+                    {/each}
             </div>
         {/each}
     {:else}
@@ -102,19 +127,13 @@
         cursor: pointer;
     }
     main a {
-        background: #3498db;
-        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-        background-image: -o-linear-gradient(top, #3498db, #2980b9);
-        background-image: linear-gradient(to bottom, #3498db, #2980b9);
         -webkit-border-radius: 28;
         -moz-border-radius: 28;
         border-radius: 28px;
         font-family: Arial;
-        color: #ffffff;
+        color: #BCC4DB;
         font-size: 30px;
-        background: #81ff5e;
+        background: #262729;
         padding: 10px 20px 10px 20px;
         text-decoration: none;
         -webkit-text-stroke-width: 0.5px;
@@ -122,17 +141,11 @@
     }
 
     main a:hover {
-        background: #c1ffb0;
+        background: #3a3c3f;
         text-decoration: none;
     }
 
     .disable {
-        background: #3498db;
-        background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-        background-image: -moz-linear-gradient(top, #3498db, #2980b9);
-        background-image: -ms-linear-gradient(top, #3498db, #2980b9);
-        background-image: -o-linear-gradient(top, #3498db, #2980b9);
-        background-image: linear-gradient(to bottom, #3498db, #2980b9);
         -webkit-border-radius: 28;
         -moz-border-radius: 28;
         border-radius: 28px;

@@ -11,7 +11,7 @@
     <div class="header">
         <a href="https://github.com/lem6ns/Movolo"><h1>Movolo</h1></a>
         <br><br>
-        <a href="https://themoviedb.org"><span>powered by ㅤ <img src="/img/tmdb.svg" alt="TMDB Logo" width="128"/></span></a>
+        <span>powered by <a href="https://themoviedb.org"><img src="/img/tmdb.svg" alt="TMDB Logo" width="128"/></a> and <a href="https://opensubtitles.org">opensubtitles.org</a></span>
         <br><br><hr><br>
         </div>
     <slot />
