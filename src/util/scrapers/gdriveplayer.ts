@@ -58,8 +58,6 @@ const search = async (query: string, type: "movie" | "tv"): Promise<SearchResult
             const seriesUrl = `${API_URL}/v1/series/search?title=${query}`;
             const seriesJSON = await fetch(seriesUrl).then(res => res.json()).catch(()=>[]) || [];
 
-            console.log(dramaJSON);
-
             const animesResults = animesJSON.map(result => {
                 const player_url = new URL(result.player_url);
                 return {

@@ -1,6 +1,6 @@
 <script>
     import { page } from "$app/stores";
-    const { provider, slug, type, quality } = $page.params;
+    let { provider, slug, type, quality, title, year } = $page.params;
     let url = "";
     let error = "";
 
@@ -28,6 +28,11 @@
             error = "Incorrect type, provider or slug.";
         }
 
+        if (isNaN(parseInt(year))) {
+            title = `${title}-${year.slice(0, -5)}`;
+            year = year.slice(-4);
+        };
+
         return json;
     };
 </script>
@@ -51,6 +56,9 @@
                 {/each}
             </ul>
         {/if}
+
+        <h2>Title: {title}</h2>
+        <h2>Year: {year}</h2>
 
         <h2>Current Quality: {quality}</h2>
     {/if}
