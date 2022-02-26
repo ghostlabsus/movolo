@@ -42,8 +42,20 @@
 {:then info}
     {#if provider == "gogo" || "vembed"}
         <code>{url}</code>
-        <h1>Use a video player like <a href="https://wiki.videolan.org/VLC_command-line_help/">VLC</a> or <a href="https://mpv.io/manual/master/#options-referrer">MPV</a> to play this video above. <strong>PLEASE</strong> set the referrer to <code>{provider == "gogo" ? "https://gogoplay.io" : "https://vidembed.io"}</code>, or it will not work.</h1>
-        <br>
+        <h1>
+            Use a video player like <a
+                href="https://wiki.videolan.org/VLC_command-line_help/">VLC</a
+            >
+            or <a href="https://mpv.io/manual/master/#options-referrer">MPV</a>
+            to play this video above. <strong>PLEASE</strong> set the referrer
+            to
+            <code
+                >{provider == "gogo"
+                    ? "https://gogoplay.io"
+                    : "https://vidembed.io"}</code
+            >, or it will not work.
+        </h1>
+        <br />
         {#if info.qualities}
             <h2>Qualities</h2>
             <ul>
@@ -52,7 +64,21 @@
                 {/each}
             </ul>
         {/if}
+        <br />
 
+        {#if info.episodes}
+            <h2>Episodes</h2>
+            <ul>
+                {#each info.episodes as episode}
+                    <li>Title: {episode.title}</li>
+                    <li>Season: {episode.season}</li>
+                    <li>Episode: {episode.episode}</li>
+                    <li>Slug: {episode.slug}</li>
+                {/each}
+            </ul>
+        {/if}
+
+        <br />
         <h2>Title: {title}</h2>
         <h2>Year: {year}</h2>
 
@@ -64,7 +90,7 @@
         <video controls>
             <source src={url} type="video/mp4" />
         </video>
-
+        <br />
         {#if info.qualities}
             <h2>Qualities</h2>
             <ul>
@@ -73,7 +99,21 @@
                 {/each}
             </ul>
         {/if}
+        <br />
 
+        {#if info.episodes}
+            <h2>Episodes</h2>
+            <ul>
+                {#each info.episodes as episode}
+                    <li>Title: {episode.title}</li>
+                    <li>Season: {episode.season}</li>
+                    <li>Episode: {episode.episode}</li>
+                    <li>Slug: {episode.slug}</li>
+                {/each}
+            </ul>
+        {/if}
+
+        <br />
         <h2>Title: {title}</h2>
         <h2>Year: {year}</h2>
 
