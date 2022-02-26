@@ -9,7 +9,7 @@
             `/api/get/scrapers/${provider}/${type}/${encodeURIComponent(slug)}`
         ).then((r) => r.json());
 
-        if (json.qualities.length && quality != "default") {
+        if (json.qualities?.length && quality != "default") {
             for (const q of json.qualities) {
                 if (q.quality === quality) {
                     url = q.url;
@@ -18,9 +18,15 @@
             }
         } else {
             url = json.url;
-        };
+        }
 
-        if (!url) error = "Invalid quality.";
+        if (json.error) {
+            error = json.error;
+        } else if (!url && quality != "default") {
+            error = "Invalid quality.";
+        } else if (!url) {
+            error = "Incorrect type, provider or slug.";
+        }
 
         return json;
     };
@@ -30,7 +36,7 @@
     <h1>Loading...</h1>
 {:then info}
     {#if error}
-        <h1>{ error }</h1>
+        <h1>{error}</h1>
     {:else}
         <!-- svelte-ignore a11y-media-has-caption -->
         <video controls>
@@ -46,6 +52,6 @@
             </ul>
         {/if}
 
-        <h2>Current Quality: { quality }</h2>
+        <h2>Current Quality: {quality}</h2>
     {/if}
 {/await}
