@@ -3,8 +3,7 @@ import type { TmdbApiResult } from "@src/Types";
 
 /** @type {import('@sveltejs/kit').RequestHandler} */
 const get = async ({ params }) => {
-    const type = params.type;
-    const lang = params.lang;
+    const { type, lang } = params;
 
     const results = await Promise.all([
         await getPopular(type, lang),
@@ -17,7 +16,7 @@ const get = async ({ params }) => {
     }
 };
 
-const getPopular = async (type: "movie" | "tv", lang: string): Promise<TmdbApiResult> => {
+const getPopular = async (type: "movie" | "tv", lang: string): Promise<TmdbApiResult[]> => {
     // get popular movies/tv from tmdb api
     const json = await fetch(`https://api.themoviedb.org/3/${type}/popular?api_key=${Config.tmdbApiKey}&language=${lang}&page=1`).then(res => res.json());
     return json.results.map(r => {
@@ -32,7 +31,7 @@ const getPopular = async (type: "movie" | "tv", lang: string): Promise<TmdbApiRe
     });
 }
 
-const getTrending = async (type: "movie" | "tv", lang: string): Promise<TmdbApiResult> => {
+const getTrending = async (type: "movie" | "tv", lang: string): Promise<TmdbApiResult[]> => {
     // get trending movies/tv from tmdb api
     const json = await fetch(`https://api.themoviedb.org/3/trending/${type}/day?api_key=${Config.tmdbApiKey}&language=${lang}`).then(res => res.json());
     return json.results.map(r => {
@@ -47,7 +46,7 @@ const getTrending = async (type: "movie" | "tv", lang: string): Promise<TmdbApiR
     });
 }
 
-const getTopRated = async (type: "movie" | "tv", lang: string): Promise<TmdbApiResult> => {
+const getTopRated = async (type: "movie" | "tv", lang: string): Promise<TmdbApiResult[]> => {
     // get top rated movies/tv from tmdb api
     const json = await fetch(`https://api.themoviedb.org/3/${type}/top_rated?api_key=${Config.tmdbApiKey}&language=${lang}&page=1`).then(res => res.json());
     return json.results.map(r => {

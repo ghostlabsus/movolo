@@ -19,7 +19,7 @@ const search = async (query: string, type: "movie" | "tv"): Promise<SearchResult
         return {
             title: titleArray.join(" ").trim(),
             year: new Date(result.querySelector(".post-meta").querySelector("span").innerText).getFullYear(),
-            slug: encodeURIComponent(result.querySelector("a")["_attrs"].href),
+            slug: encodeURIComponent(result.querySelector("a").attrs.href),
             provider: "vidz",
             type
         }
